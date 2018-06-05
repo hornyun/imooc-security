@@ -35,18 +35,18 @@ public class UserController {
     @JsonView(User.UserSimpleView.class)
     public List<User> query(UserQueryCondition condition, @PageableDefault(size = 10, page = 1, sort = "age,desc") Pageable pageable) {
 
-        throw new UserNotExistException(100);
-//        ArrayList<User> userList = new ArrayList<>(4);
-//
-//        log.info("【username】={}", condition);
-//        log.info("【pageable】={}", pageable);
-//
-//        userList.add(new User("root", "123"));
-//        userList.add(new User("zhy", "888"));
-//        userList.add(new User("horn", "97"));
-//
-//        userList.trimToSize();
-//        return userList;
+//        throw new UserNotExistException(100);
+        ArrayList<User> userList = new ArrayList<>(4);
+
+        log.info("【username】={}", condition);
+        log.info("【pageable】={}", pageable);
+
+        userList.add(new User("root", "123"));
+        userList.add(new User("zhy", "888"));
+        userList.add(new User("horn", "97"));
+
+        userList.trimToSize();
+        return userList;
     }
 
     @GetMapping(value = "/user/{id:\\d+}")
