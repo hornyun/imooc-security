@@ -1,10 +1,12 @@
 package com.imooc.domain;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.imooc.validator.MyConstraint;
 import lombok.Data;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -28,6 +30,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = -5653241688972527399L;
 
     @JsonView(UserSimpleView.class)
+    @MyConstraint(message = "This is my validator")
     private String username;
 
     @JsonView(UserSimpleView.class)
@@ -38,6 +41,7 @@ public class User implements Serializable {
     private String password;
 
     @JsonView(UserSimpleView.class)
+    @Past
     private Date birthday;
 
     public User() {
