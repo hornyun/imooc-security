@@ -1,6 +1,8 @@
 package com.imooc.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.io.Serializable;
 
@@ -15,10 +17,17 @@ import java.io.Serializable;
 @Data
 public class User implements Serializable {
 
+    public interface UserSimpleView {
+    }
+
+    public interface UserDetailView extends UserSimpleView {
+    }
 
     private static final long serialVersionUID = -5653241688972527399L;
 
+    @JsonView(UserSimpleView.class)
     private String username;
+    @JsonView(UserDetailView.class)
     private String password;
 
     public User() {

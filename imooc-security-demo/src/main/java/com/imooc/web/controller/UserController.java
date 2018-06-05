@@ -1,5 +1,6 @@
 package com.imooc.web.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.imooc.domain.User;
 import com.imooc.web.vo.UserQueryCondition;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,8 @@ public class UserController {
 
 
     @GetMapping(value = "/user")
-    public List<User> query(UserQueryCondition condition,@PageableDefault(size = 10,page = 1,sort = "age,desc") Pageable pageable) {
+    @JsonView(User.UserSimpleView.class)
+    public List<User> query(UserQueryCondition condition, @PageableDefault(size = 10, page = 1, sort = "age,desc") Pageable pageable) {
         ArrayList<User> userList = new ArrayList<>(4);
 
         log.info("【username】={}", condition);
@@ -36,9 +38,18 @@ public class UserController {
         userList.add(new User("zhy", "888"));
         userList.add(new User("horn", "97"));
 
-
         userList.trimToSize();
-
         return userList;
+    }
+
+    @GetMapping(value = "/user/{id:\\d+}")
+    public User getUserById(@PathVariable String id) {
+        User user = new User();
+
+        user.setUsername("test");
+        user.setPassword("test");
+
+        log.info("【Accept id is】={}", id);
+        return user;
     }
 }
