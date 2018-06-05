@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @QQ: 583760722
  */
 @Aspect
-@Component
+//@Component
 @Slf4j
 public class TimeAspect {
     @Pointcut("execution(* com.imooc.web.controller.*Controller.*(..))")
