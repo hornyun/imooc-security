@@ -2,6 +2,7 @@ package com.imooc.web.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.imooc.domain.User;
+import com.imooc.exception.UserNotExistException;
 import com.imooc.web.form.UserQueryCondition;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -33,17 +34,19 @@ public class UserController {
     @GetMapping(value = "/user")
     @JsonView(User.UserSimpleView.class)
     public List<User> query(UserQueryCondition condition, @PageableDefault(size = 10, page = 1, sort = "age,desc") Pageable pageable) {
-        ArrayList<User> userList = new ArrayList<>(4);
 
-        log.info("【username】={}", condition);
-        log.info("【pageable】={}", pageable);
-
-        userList.add(new User("root", "123"));
-        userList.add(new User("zhy", "888"));
-        userList.add(new User("horn", "97"));
-
-        userList.trimToSize();
-        return userList;
+        throw new UserNotExistException(100);
+//        ArrayList<User> userList = new ArrayList<>(4);
+//
+//        log.info("【username】={}", condition);
+//        log.info("【pageable】={}", pageable);
+//
+//        userList.add(new User("root", "123"));
+//        userList.add(new User("zhy", "888"));
+//        userList.add(new User("horn", "97"));
+//
+//        userList.trimToSize();
+//        return userList;
     }
 
     @GetMapping(value = "/user/{id:\\d+}")
@@ -59,13 +62,13 @@ public class UserController {
 
     @PostMapping(value = "/user")
     @JsonView(User.UserDetailView.class)
-    public Map<String, Object> createUser(@Valid @RequestBody User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            List<ObjectError> allErrors = bindingResult.getAllErrors();
-            for (ObjectError objectError : allErrors) {
-                log.info("[objectError.getDefaultMessage()={}]", objectError.getDefaultMessage());
-            }
-        }
+    public Map<String, Object> createUser(@Valid @RequestBody User user) {
+//        if (bindingResult.hasErrors()) {
+//            List<ObjectError> allErrors = bindingResult.getAllErrors();
+//            for (ObjectError objectError : allErrors) {
+//                log.info("[objectError.getDefaultMessage()={}]", objectError.getDefaultMessage());
+//            }
+//        }
         log.info("【create user as 】={}", user);
         log.info("【user'id is null.Answer:{}】", (user.getId() == null));
         Map<String, Object> result = new HashMap<>(4);
