@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author zhy
@@ -27,8 +29,16 @@ public class User implements Serializable {
 
     @JsonView(UserSimpleView.class)
     private String username;
+
+    @JsonView(UserSimpleView.class)
+    private String id;
+
     @JsonView(UserDetailView.class)
+    @NotNull
     private String password;
+
+    @JsonView(UserSimpleView.class)
+    private Date birthday;
 
     public User() {
     }

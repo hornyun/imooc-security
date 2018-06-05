@@ -1,4 +1,4 @@
-package com.imooc.web.vo;
+package com.imooc.web.form;
 
 import lombok.Data;
 
