@@ -1,7 +1,9 @@
 package com.imooc.web.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,7 +27,9 @@ public class TimeInterceptor implements HandlerInterceptor {
         request.setAttribute("start", System.currentTimeMillis());
         log.info("【handler class:{}】", o.getClass());
         log.info("【handler:{}】", o);
-
+        HandlerMethod handlerMethod = (HandlerMethod) o;
+        MethodParameter[] methodParameters = handlerMethod.getMethodParameters();
+        log.info("【methodParameters={}】", methodParameters);
         return true;
     }
 

@@ -35,7 +35,7 @@ public class UserController {
     @JsonView(User.UserSimpleView.class)
     public List<User> query(UserQueryCondition condition, @PageableDefault(size = 10, page = 1, sort = "age,desc") Pageable pageable) {
 
-//        throw new UserNotExistException(100);
+//        throw new RuntimeException("user not exist");
         ArrayList<User> userList = new ArrayList<>(4);
 
         log.info("【username】={}", condition);
