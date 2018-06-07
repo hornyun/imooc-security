@@ -1,5 +1,6 @@
 package com.imooc.security.core.properties;
 
+import com.imooc.security.core.LoginType;
 import lombok.Data;
 
 /**
@@ -12,6 +13,9 @@ import lombok.Data;
  */
 @Data
 public class BrowserProperties {
+
     private String loginPage = "/imooc-sigIn.html";
+
+    private LoginType loginType = LoginType.JSON;
 
 }

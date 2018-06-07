@@ -15,8 +15,9 @@ management:
       enabled: false
 
 
-#imooc:
-#  security:
-#    browser:
+imooc:
+  security:
+    browser:
 #      loginPage:
 #        /demo-sigIn.html
+      loginType: JSON
