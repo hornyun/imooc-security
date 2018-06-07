@@ -1,6 +1,6 @@
-package com.imooc.security.repository;
+package com.imooc.security.browser.repository;
 
-import com.imooc.security.entity.User;
+import com.imooc.security.browser.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

@@ -13,3 +13,10 @@ management:
   health:
     redis:
       enabled: false
+
+
+#imooc:
+#  security:
+#    browser:
+#      loginPage:
+#        /demo-sigIn.html

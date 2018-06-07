@@ -1,6 +1,5 @@
 package com.imooc.security.browser;
 
-import com.imooc.security.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -38,6 +37,7 @@ public class MyUserDetailsService implements UserDetailsService {
         return new User(username, password,
                 true, true, true,
                 true, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
-
     }
+
+
 }

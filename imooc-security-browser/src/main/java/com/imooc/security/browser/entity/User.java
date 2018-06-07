@@ -1,4 +1,4 @@
-package com.imooc.security.entity;
+package com.imooc.security.browser.entity;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
