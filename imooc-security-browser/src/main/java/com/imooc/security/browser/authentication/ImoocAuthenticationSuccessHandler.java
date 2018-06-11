@@ -40,7 +40,5 @@ public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
         } else {
             super.onAuthenticationSuccess(request, response, authentication);
         }
-
-
     }
 }

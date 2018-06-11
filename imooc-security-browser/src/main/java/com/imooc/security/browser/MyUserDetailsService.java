@@ -38,6 +38,4 @@ public class MyUserDetailsService implements UserDetailsService {
                 true, true, true,
                 true, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
-
-
 }

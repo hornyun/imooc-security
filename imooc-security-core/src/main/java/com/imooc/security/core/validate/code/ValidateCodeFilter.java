@@ -1,10 +1,13 @@
 package com.imooc.security.core.validate.code;
 
+import com.imooc.security.core.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -15,6 +18,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author zhy
@@ -24,17 +29,29 @@ import java.io.IOException;
  * @copyright: 上海英和
  * @QQ: 583760722
  */
-public class ValidateCodeFilter extends OncePerRequestFilter {
+public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     private AuthenticationFailureHandler authenticationFailureHandler;
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
+    private Set<String> urls = new HashSet<>();
+
+    private AntPathMatcher antPathMatcher = new AntPathMatcher();
+
+    @Autowired
+    private SecurityProperties securityProperties;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        boolean flag = false;
+        for (String url : urls) {
+            if (antPathMatcher.match(url, request.getRequestURI())) {
+                flag = true;
+                break;
+            }
+        }
 
-
-        if (StringUtils.equals("/authentication/form", request.getRequestURI())
-                && StringUtils.endsWithIgnoreCase("post", request.getMethod())) {
+        if (flag) {
             try {
                 validate(new ServletWebRequest(request));
             } catch (ValidateCodeException e) {
@@ -79,5 +96,31 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 
     public void setAuthenticationFailureHandler(AuthenticationFailureHandler authenticationFailureHandler) {
         this.authenticationFailureHandler = authenticationFailureHandler;
+    }
+
+    public Set<String> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(Set<String> urls) {
+        this.urls = urls;
+    }
+
+    public SecurityProperties getSecurityProperties() {
+        return securityProperties;
+    }
+
+    public void setSecurityProperties(SecurityProperties securityProperties) {
+        this.securityProperties = securityProperties;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws ServletException {
+        super.afterPropertiesSet();
+        String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getImage().getUrl(), ",");
+        for (String url : configUrls) {
+            urls.add(url);
+        }
+        urls.add("/authentication/form");
     }
 }
