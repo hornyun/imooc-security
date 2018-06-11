@@ -18,4 +18,5 @@ public class BrowserProperties {
 
     private LoginType loginType = LoginType.JSON;
 
+    private Integer rememberMeSeconds = 3600;
 }

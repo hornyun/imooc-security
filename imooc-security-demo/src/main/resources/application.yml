@@ -21,8 +21,8 @@ imooc:
 #      loginPage:
 #        /demo-sigIn.html
       loginType: JSON
-    code:
-      image:
-        length: 6
-        width: 88
-        url: /user/*
+#    code:
+#      image:
+#        length: 6
+#        width: 88
+#        url: /user/*
