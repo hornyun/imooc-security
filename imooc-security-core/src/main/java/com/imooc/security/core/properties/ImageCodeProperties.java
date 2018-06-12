@@ -11,12 +11,11 @@ import lombok.Data;
  * @QQ: 583760722
  */
 @Data
-public class ImageCodeProperties {
+public class ImageCodeProperties extends SmsCodeProperties {
     private Integer width = 67;
     private Integer height = 23;
-    private Integer length = 4;
-    private Integer expireIn = 60;
 
-    private String url;
-
+    public ImageCodeProperties() {
+        setLength(4);
+    }
 }

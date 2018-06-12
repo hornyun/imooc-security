@@ -11,8 +11,10 @@ import lombok.Data;
  * @QQ: 583760722
  */
 @Data
-public class ValidateCodeProperties {
-    private ImageCodeProperties image = new ImageCodeProperties();
+public class SmsCodeProperties {
+    private int length = 6;
+    private int expireIn = 60;
 
-    private SmsCodeProperties sms = new SmsCodeProperties();
+    private String url;
+
 }

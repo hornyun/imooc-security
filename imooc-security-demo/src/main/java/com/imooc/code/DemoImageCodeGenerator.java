@@ -1,9 +1,10 @@
 package com.imooc.code;
 
-import com.imooc.security.core.validate.code.ImageCode;
+import com.imooc.security.core.validate.code.ValidateCode;
+import com.imooc.security.core.validate.code.image.ImageCode;
 import com.imooc.security.core.validate.code.ValidateCodeGenerator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,9 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 //@Component(value = "imageCodeGenerator")
 @Slf4j
 public class DemoImageCodeGenerator implements ValidateCodeGenerator {
+
     @Override
-    public ImageCode generate(HttpServletRequest request) {
-        log.info("更高级的图形验证码的图形验证码生成器");
+    public ValidateCode generate(ServletWebRequest request) {
         return null;
     }
 }

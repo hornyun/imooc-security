@@ -39,14 +39,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource(name = "imoocAuthenticationFailureHandler")
     private AuthenticationFailureHandler authenticationFailureHandler;
 
+    @Autowired
+    private ValidateCodeFilter validateCodeFilter;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
-        validateCodeFilter.setSecurityProperties(securityProperties);
-        validateCodeFilter.afterPropertiesSet();
-
 
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
@@ -61,7 +58,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/authentication/require", securityProperties.getBrowser().getLoginPage(), "/code/image")
+                .antMatchers("/authentication/require", securityProperties.getBrowser().getLoginPage(), "/code/*")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

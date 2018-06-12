@@ -1,5 +1,6 @@
-package com.imooc.security.core.validate.code;
+package com.imooc.security.core.validate.code.image;
 
+import com.imooc.security.core.validate.code.ValidateCode;
 import lombok.Data;
 
 import java.awt.image.BufferedImage;
@@ -14,30 +15,21 @@ import java.time.LocalDateTime;
  * @QQ: 583760722
  */
 @Data
-public class ImageCode {
+public class ImageCode extends ValidateCode {
 
     private BufferedImage image;
-
-    private String code;
-
-    private LocalDateTime expireTime;
 
     public ImageCode() {
     }
 
     public ImageCode(BufferedImage image, String code, LocalDateTime expireTime) {
+        super(code,expireTime);
         this.image = image;
-        this.code = code;
-        this.expireTime = expireTime;
     }
 
     public ImageCode(BufferedImage image, String code, Integer expireIn) {
+        super(code,expireIn);
         this.image = image;
-        this.code = code;
-        this.expireTime = LocalDateTime.now().plusSeconds(expireIn);
     }
 
-    public boolean isExpired() {
-        return LocalDateTime.now().isAfter(expireTime);
-    }
 }

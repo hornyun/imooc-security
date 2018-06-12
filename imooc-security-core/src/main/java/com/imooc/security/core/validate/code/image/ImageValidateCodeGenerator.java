@@ -1,10 +1,10 @@
-package com.imooc.security.core.validate.code;
+package com.imooc.security.core.validate.code.image;
 
 import com.imooc.security.core.properties.SecurityProperties;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.imooc.security.core.validate.code.ValidateCodeGenerator;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.context.request.ServletWebRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -17,14 +17,15 @@ import java.util.Random;
  * @copyright: 上海英和
  * @QQ: 583760722
  */
-public class ImageCodeGenerator implements ValidateCodeGenerator {
+public class ImageValidateCodeGenerator implements ValidateCodeGenerator {
 
     private SecurityProperties securityProperties;
 
+
     @Override
-    public ImageCode generate(HttpServletRequest request) {
-        int width = ServletRequestUtils.getIntParameter(request, "width", securityProperties.getCode().getImage().getWidth());
-        int height = ServletRequestUtils.getIntParameter(request, "height", securityProperties.getCode().getImage().getHeight());
+    public ImageCode generate(ServletWebRequest request) {
+        int width = ServletRequestUtils.getIntParameter(request.getRequest(), "width", securityProperties.getCode().getImage().getWidth());
+        int height = ServletRequestUtils.getIntParameter(request.getRequest(), "height", securityProperties.getCode().getImage().getHeight());
 
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics g = image.getGraphics();
@@ -87,4 +88,6 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
     public void setSecurityProperties(SecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
     }
+
+
 }

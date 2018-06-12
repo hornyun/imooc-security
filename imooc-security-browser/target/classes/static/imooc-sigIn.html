@@ -8,6 +8,8 @@
     <title>Login</title>
 </head>
 <body>
+<h2>标准登陆页面</h2>
+<h3>表单登陆</h3>
 <form action="/authentication/form" method="post">
     <table>
         <tr>
@@ -29,6 +31,28 @@
         </tr>
         <tr>
             <td colspan="2"><input type="checkbox" name="remember-me" value="true">记住我</td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="submit"></td>
+        </tr>
+    </table>
+</form>
+
+<h2>标准登陆页面</h2>
+<h3>短信登陆</h3>
+<form action="/authentication/mobile" method="post">
+    <table>
+        <tr>
+            <td>mobile:</td>
+            <td><input type="text" name="mobile" value="18037022409"></td>
+        </tr>
+
+        <tr>
+            <td>短信验证码:</td>
+            <td>
+                <input type="text" name="smsCode">
+                <a href="/code/sms?mobile=18037022409">发送验证码</a>
+            </td>
         </tr>
         <tr>
             <td colspan="2"><input type="submit" value="submit"></td>
